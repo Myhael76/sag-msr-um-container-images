@@ -6,11 +6,32 @@ pool:
   name: GCC_MIUN_VMSS
   vmImage: Canonical:0001-com-ubuntu-confidential-vm-focal:20_04-lts-gen2:latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+jobs:
+- job: build-lean-msr
+  displayName: Build Lean MSR
+  steps:
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - script: |
+      chmod u+x ${BUILD_SOURCESDIRECTORY}/"*.sh
+      ${BUILD_SOURCESDIRECTORY}/getBuildah.sh
+
+  - task: DownloadSecureFile@1
+    name: msrLicense
+    displayName: 'Download MSR license'
+    inputs:
+      secureFile: 'msr-license.xml'
+
+  - task: DownloadSecureFile@1
+    name: secrets
+    displayName: 'Download MSR license'
+    inputs:
+      secureFile: 'msr.build.secrets.sh'
+
+  - script: |
+      echo "Dumping environment"
+      env | sort
+      echo "End nvironment dump"
+      echo "Running a repository script"
+      chmod u+x ${BUILD_SOURCESDIRECTORY}/scripts/*.sh
+      ${BUILD_SOURCESDIRECTORY}/scripts/buildSagImages.sh
+    displayName: 'Generate Software AG image files'
