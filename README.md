@@ -1,1 +1,2 @@
-# sag-msr-um-container-images
+# Build MSR Lean, Universal Messaging Realm Server and Universal Messaging Template Application Container Images
+
