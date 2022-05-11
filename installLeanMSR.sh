@@ -159,7 +159,10 @@ containerize(){
   find "${SUIF_INSTALL_INSTALL_DIR}" -type f -name Dockerfile*
   cd "${SUIF_INSTALL_INSTALL_DIR}"
   logI "Building container"
-  buildah bud -f ./Dockerfile_IS --format docker -t "${AZ_ACR_URL}/sag-lean-msr-canonical_1011:${SUIF_FIXES_DATE_TAG}"
+  buildah \
+    --storage-opt mount_program=/usr/bin/fuse-overlayfs \
+    --storage-opt ignore_chown_errors=true \
+    bud -f ./Dockerfile_IS --format docker -t "${AZ_ACR_URL}/sag-lean-msr-canonical_1011:${SUIF_FIXES_DATE_TAG}"
 }
 containerize
 

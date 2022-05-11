@@ -2,7 +2,7 @@
 echo "===================> Updating base libraries..."
 sudo apt-get -y update
 echo "===================> Installing prerequisites..."
-sudo apt-get install -y wget ca-certificates gnupg2
+sudo apt-get install -y wget ca-certificates gnupg2 fuse-overlayfs
 echo "===================> Installing buildah..."
 sudo echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 sudo wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/xUbuntu_20.04/Release.key -O /tmp/Release.key
