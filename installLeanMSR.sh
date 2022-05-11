@@ -9,6 +9,11 @@ sd="/tmp/share"   # share directory - images
 binDir="$sd/bin"
 installerSharedBin="$binDir/installer.bin"
 sumBootstrapSharedBin="$binDir/sum-bootstrap.bin"
+template="MSR/1011/lean"
+fixTag="22-05-11"
+
+export SUIF_INSTALL_IMAGE_FILE="/tmp/products.zip"
+export SUIF_PATCH_FIXES_IMAGE_FILE="/tmp/fixes.zip"
 
 exports(){
   export SUIF_FIXES_DATE_TAG="$crtDay"
@@ -104,6 +109,27 @@ assureSUM(){
 }
 assureSUM
 
+assureProductImages(){
+  local SHARED_INSTALL_IMAGE_FILE="$sd/products/${template}/products.zip"
+  local SHARED_PATCH_FIXES_IMAGE_FILE="$sd/fixes/${template}/${fixTag}/fixes.zip"
+
+  if [ ! -f "${SHARED_INSTALL_IMAGE_FILE}" ]; then
+    logE "Products image file must exist in the share: ${SHARED_INSTALL_IMAGE_FILE}"
+    exit 3
+  fi
+  logI "Copying installer binary from the share"
+  cp "${SHARED_INSTALL_IMAGE_FILE}" "${SUIF_INSTALL_IMAGE_FILE}"
+  logI "Installer binary copied"
+
+  if [ ! -f "${SHARED_PATCH_FIXES_IMAGE_FILE}" ]; then
+    logE "Fixes image file must exist in the share: ${SHARED_PATCH_FIXES_IMAGE_FILE}"
+    exit 4
+  fi
+  logI "Copying installer binary from the share"
+  cp "${SHARED_PATCH_FIXES_IMAGE_FILE}" "${SUIF_PATCH_FIXES_IMAGE_FILE}"
+  logI "Installer binary copied"
+}
+
 install(){
   logI "Installing MSR..."
   export SUIF_INSTALL_INSTALL_DIR=/tmp/MSR
@@ -114,7 +140,7 @@ install(){
 
   logEnv
 
-  applySetupTemplate "MSR/1011/lean"
+  applySetupTemplate "${template}"
 }
 install
 
