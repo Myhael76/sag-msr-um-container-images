@@ -17,6 +17,7 @@ exports(){
   # we'll work with local binaries, as the mount may have low IOPS
   export SUIF_INSTALL_INSTALLER_BIN=/tmp/installer.bin
   export SUIF_PATCH_SUM_BOOSTSTRAP_BIN=/tmp/sum-bootstrap.bin
+  export SUIF_ONLINE_MODE=0
 }
 exports
 
@@ -110,7 +111,8 @@ install(){
   export SUIF_PATCH_AVAILABLE=1
   export SUIF_SETUP_TEMPLATE_MSR_LICENSE_FILE="${MSRLICENSE_SECUREFILEPATH}"
   export SUIF_INSTALL_TIME_ADMIN_PASSWORD=manage01
-  export SUIF_ONLINE_MODE=0
+
+  logEnv
 
   applySetupTemplate "MSR/1011/lean"
 }
@@ -121,6 +123,7 @@ containerize(){
   ./is_container.sh createLeanDockerfile
   find "${SUIF_INSTALL_INSTALL_DIR}" -type f -name Dockerfile
 }
+containerize
 
 finally(){
   logI "Saving the audit"
