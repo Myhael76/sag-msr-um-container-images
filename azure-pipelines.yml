@@ -12,8 +12,8 @@ jobs:
   steps:
 
   - script: |
-      chmod u+x ${BUILD_SOURCESDIRECTORY}/"*.sh
-      ${BUILD_SOURCESDIRECTORY}/getBuildah.sh
+      chmod u+x "${BUILD_SOURCESDIRECTORY}/"*.sh
+      "${BUILD_SOURCESDIRECTORY}"/getBuildah.sh
     displayName: 'Update and get Buildah'
 
   - task: DownloadSecureFile@1
