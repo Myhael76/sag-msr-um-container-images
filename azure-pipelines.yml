@@ -32,7 +32,6 @@ jobs:
       echo "Dumping environment"
       env | sort
       echo "End nvironment dump"
-      echo "Running a repository script"
-      chmod u+x ${BUILD_SOURCESDIRECTORY}/scripts/*.sh
-      ${BUILD_SOURCESDIRECTORY}/scripts/buildSagImages.sh
+      echo "Installing MSR"
+      ${BUILD_SOURCESDIRECTORY}/installLeanMSR.sh
     displayName: 'Generate Lean MSR container image'
