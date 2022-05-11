@@ -3,7 +3,8 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  name: GCC_MIUN_VMSS
+  vmImage: Canonical:0001-com-ubuntu-confidential-vm-focal:20_04-lts-gen2:latest
 
 steps:
 - script: echo Hello, world!
