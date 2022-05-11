@@ -153,11 +153,24 @@ install(){
 install
 
 containerize(){
+  logI "Conainerizing MS according to product default approach"
   cd "${SUIF_INSTALL_INSTALL_DIR}/IntegrationServer/docker"
   ./is_container.sh createLeanDockerfile
-  find "${SUIF_INSTALL_INSTALL_DIR}" -type f -name Dockerfile
+  find "${SUIF_INSTALL_INSTALL_DIR}" -type f -name Dockerfile*
+  cd "${SUIF_INSTALL_INSTALL_DIR}"
+  logI "Building container"
+  buildah bud -f ./Dockerfile_IS --format docker -t "${AZ_ACR_URL}/sag-lean-msr-canonical_1011:${SUIF_FIXES_DATE_TAG}"
 }
 containerize
+
+pushImage(){
+  logI "Logging in to ACR ${AZ_ACR_URL}"
+  buildah login "${AZ_ACR_URL}" -u "${AZ_ACR_SP_ID}" -p "{AZ_ACR_SP_SECRET}"
+  logI "Pushing image ${AZ_ACR_URL}/sag-lean-msr-canonical_1011:${SUIF_FIXES_DATE_TAG}"
+  buildah push "${AZ_ACR_URL}/sag-lean-msr-canonical_1011:${SUIF_FIXES_DATE_TAG}"
+  logI "Push completed"
+}
+pushImage
 
 finally(){
   logI "Saving the audit"

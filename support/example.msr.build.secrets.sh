@@ -10,3 +10,6 @@ export AZ_SM_SHARE_KEY=''
 # ACR Service Principal
 export AZ_ACR_SP_ID=''
 export AZ_ACR_SP_SECRET=''
+
+# ACR login URL
+export AZ_ACR_URL=mysagimages.azurecr.io
