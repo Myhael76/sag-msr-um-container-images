@@ -129,6 +129,7 @@ assureProductImages(){
   cp "${SHARED_PATCH_FIXES_IMAGE_FILE}" "${SUIF_PATCH_FIXES_IMAGE_FILE}"
   logI "Installer binary copied"
 }
+assureProductImages
 
 install(){
   logI "Installing MSR..."
