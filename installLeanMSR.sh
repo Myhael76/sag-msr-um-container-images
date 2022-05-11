@@ -168,7 +168,7 @@ containerize
 
 pushImage(){
   logI "Logging in to ACR ${AZ_ACR_URL}"
-  buildah login "${AZ_ACR_URL}" -u "${AZ_ACR_SP_ID}" -p "{AZ_ACR_SP_SECRET}"
+  buildah login -u "${AZ_ACR_SP_ID}" -p "{AZ_ACR_SP_SECRET}" "${AZ_ACR_URL}"
   logI "Pushing image ${AZ_ACR_URL}/sag-lean-msr-canonical_1011:${SUIF_FIXES_DATE_TAG}"
   buildah push "${AZ_ACR_URL}/sag-lean-msr-canonical_1011:${SUIF_FIXES_DATE_TAG}"
   logI "Push completed"
