@@ -7,13 +7,14 @@ pool:
   vmImage: Canonical:0001-com-ubuntu-confidential-vm-focal:20_04-lts-gen2:latest
 
 jobs:
-- job: build-lean-msr
+- job: buildLeanMsr
   displayName: Build Lean MSR
   steps:
 
   - script: |
       chmod u+x ${BUILD_SOURCESDIRECTORY}/"*.sh
       ${BUILD_SOURCESDIRECTORY}/getBuildah.sh
+    displayName: 'Update and get Buildah'
 
   - task: DownloadSecureFile@1
     name: msrLicense
@@ -23,7 +24,7 @@ jobs:
 
   - task: DownloadSecureFile@1
     name: secrets
-    displayName: 'Download MSR license'
+    displayName: 'Download MSR build secrets'
     inputs:
       secureFile: 'msr.build.secrets.sh'
 
@@ -34,4 +35,4 @@ jobs:
       echo "Running a repository script"
       chmod u+x ${BUILD_SOURCESDIRECTORY}/scripts/*.sh
       ${BUILD_SOURCESDIRECTORY}/scripts/buildSagImages.sh
-    displayName: 'Generate Software AG image files'
+    displayName: 'Generate Lean MSR container image'
