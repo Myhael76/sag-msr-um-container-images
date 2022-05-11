@@ -102,13 +102,6 @@ assureBinaries(){
 }
 assureBinaries
 
-assureSUM(){
-  export SUIF_SUM_HOME=/tmp/sumv11
-  mkdir -p "${SUIF_SUM_HOME}"
-  bootstrapSum "${SUIF_PATCH_SUM_BOOSTSTRAP_BIN}" "" "${SUIF_SUM_HOME}"
-}
-assureSUM
-
 assureProductImages(){
   local SHARED_INSTALL_IMAGE_FILE="$sd/products/${template}/products.zip"
   local SHARED_PATCH_FIXES_IMAGE_FILE="$sd/fixes/${template}/${fixTag}/fixes.zip"
@@ -131,6 +124,14 @@ assureProductImages(){
 }
 assureProductImages
 
+assureSUM(){
+  export SUIF_SUM_HOME=/tmp/sumv11
+  mkdir -p "${SUIF_SUM_HOME}"
+  bootstrapSum "${SUIF_PATCH_SUM_BOOSTSTRAP_BIN}" "" "${SUIF_SUM_HOME}"
+}
+assureSUM
+
+
 install(){
   logI "Installing MSR..."
   export SUIF_INSTALL_INSTALL_DIR=/tmp/MSR
@@ -142,6 +143,12 @@ install(){
   logEnv
 
   applySetupTemplate "${template}"
+
+  local insallResult=$?
+
+  if [ "${insallResult}" -ne 0 ]; then
+    logE "Installation failed, code ${insallResult}"
+  fi
 }
 install
 
