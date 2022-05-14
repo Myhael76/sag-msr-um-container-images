@@ -6,7 +6,7 @@ echo "Environment dump before SUIF download"
 env | sort
 
 mkdir -p "${SUIF_HOME}" "${SUIF_AUDIT_BASE_DIR}"
-git clone -b "${SUIF_TAG}" --single-branch https://github.com/SoftwareAG/sag-unattented-installations.git "${SUIF_HOME}"
+git clone -b "${MY_SUIF_TAG}" --single-branch https://github.com/SoftwareAG/sag-unattented-installations.git "${SUIF_HOME}"
 if [ $? -ne 0 ]; then
   echo "ERROR downloading SUIF"
   exit 1
