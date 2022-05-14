@@ -19,6 +19,6 @@ fi
 logI "Copying sum bootstrap binary from the share"
 cp "${MY_sumBootstrapSharedBin}" "${SUIF_PATCH_SUM_BOOSTSTRAP_BIN}"
 
-logI "Installer binary copied"
+logI "SUM bootstrap binary copied"
 chmod u+x "${SUIF_INSTALL_INSTALLER_BIN}"
 chmod u+x "${SUIF_PATCH_SUM_BOOSTSTRAP_BIN}"

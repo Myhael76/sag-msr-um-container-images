@@ -10,14 +10,14 @@ if [ ! -f "${SHARED_INSTALL_IMAGE_FILE}" ]; then
   logE "Products image file must exist in the share: ${SHARED_INSTALL_IMAGE_FILE}"
   exit 1
 fi
-logI "Copying installer binary from the share"
+logI "Copying products image from the share"
 cp "${SHARED_INSTALL_IMAGE_FILE}" "${SUIF_INSTALL_IMAGE_FILE}"
-logI "Installer binary copied"
+logI "Products image copied"
 
 if [ ! -f "${SHARED_PATCH_FIXES_IMAGE_FILE}" ]; then
   logE "Fixes image file must exist in the share: ${SHARED_PATCH_FIXES_IMAGE_FILE}"
   exit 2
 fi
-logI "Copying installer binary from the share"
+logI "Copying fixes image from the share"
 cp "${SHARED_PATCH_FIXES_IMAGE_FILE}" "${SUIF_PATCH_FIXES_IMAGE_FILE}"
-logI "Installer binary copied"
+logI "Fixes image copied"
