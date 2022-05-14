@@ -31,7 +31,7 @@ FROM alpine as packer
 
 ARG __instance_name=umserver
 
-ENV $INSTANCE_NAME=${__instance_name}
+ENV INSTANCE_NAME=${__instance_name}
 
 RUN mkdir -p \
       /tmp/product_home/common/bin/ \
