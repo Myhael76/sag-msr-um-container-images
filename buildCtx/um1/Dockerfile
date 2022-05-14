@@ -53,6 +53,7 @@ USER 1724
 FROM base
 # __instance_name: If user want to copy the specific instance content to image, they can specifiy here. Default instance name is 'umserver'
 ARG __instance_name=umserver
+ARG __data_dir=/app/data
 
 #MAINTAINER SoftwareAG
 
@@ -65,7 +66,7 @@ ENV SAG_GROUP_ID=1724
 ENV SAG_GROUP_NAME=sagadmin
 ENV PORT=9000 \
     JMX_AGENT_PORT=9200 \
-  	DATA_DIR=$UM_HOME/server/$INSTANCE_NAME/data \
+  	DATA_DIR=$__data_dir \
     LOG_DIR=$UM_HOME/server/$INSTANCE_NAME/logs \
     LIC_DIR=$UM_HOME/server/$INSTANCE_NAME/licence \
     USERS_DIR=$SAG_HOME/common/conf \

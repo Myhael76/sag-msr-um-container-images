@@ -36,5 +36,6 @@ export SUIF_PATCH_FIXES_IMAGE_FILE="/tmp/fixes.zip"
 export SUIF_PATCH_SUM_BOOSTSTRAP_BIN="/tmp/sum-bootstrap.bin"
 export SUIF_SDC_ONLINE_MODE=0 # tell SUIF we are not connected to SDC, but using our own images
 export SUIF_SETUP_TEMPLATE_MSR_LICENSE_FILE="${MSRLICENSE_SECUREFILEPATH}"
-export SUIF_WMSCRIPT_NUMLicenseFile="${UMLICENSE_SECUREFILEPATH}"
 export SUIF_SUM_HOME=/tmp/sumv11
+export SUIF_WMSCRIPT_NUMDataDirID=/tmp/data
+export SUIF_WMSCRIPT_NUMLicenseFile="${UMLICENSE_SECUREFILEPATH}"

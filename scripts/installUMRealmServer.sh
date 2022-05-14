@@ -8,7 +8,7 @@ logI "SUIF env before installation of MSR:"
 env | grep SUIF_ | sort
 
 logI "Installing Universal Messaging Realm Server"
-
+mkdir -p ${SUIF_WMSCRIPT_NUMDataDirID}
 applySetupTemplate "${MY_UM_template}"
 
 local installResult=$?
