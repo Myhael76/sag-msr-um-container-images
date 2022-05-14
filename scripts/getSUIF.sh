@@ -15,3 +15,7 @@ if [ ! -f "${SUIF_HOME}/01.scripts/commonFunctions.sh" ]; then
   echo "SUIF clone unseccessful, cannot continue"
   exit 2
 fi
+
+logI "Preparing the installation folder"
+sudo mkdir -p "${SUIF_INSTALL_INSTALL_DIR}"
+sudo chmod a+w "${SUIF_INSTALL_INSTALL_DIR}"
