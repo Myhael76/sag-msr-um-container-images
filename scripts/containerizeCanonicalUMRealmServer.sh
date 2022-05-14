@@ -14,7 +14,7 @@ buildah \
   --storage-opt ignore_chown_errors=true \
   bud \
     --build-arg __instance_name=${SUIF_WMSCRIPT_NUMRealmServerNameID} \
-    --build-arg __dataDir=${SUIF_WMSCRIPT_NUMDataDirID} \
+    --build-arg __data_dir=${SUIF_WMSCRIPT_NUMDataDirID} \
     --format docker \
     -t "${AZ_ACR_CANONICAL_UMRS_CONTAINER_IMAGE_FULL_NAME}"
 
