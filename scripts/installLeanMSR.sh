@@ -3,22 +3,19 @@
 . ${BUILD_SOURCESDIRECTORY}/scripts/setEnv.sh
 . ${SUIF_HOME}/01.scripts/commonFunctions.sh
 . ${SUIF_HOME}/01.scripts/installation/setupFunctions.sh
-logI "SUIF env after sourcing:"
+
+logI "SUIF env before installation of MSR:"
 env | grep SUIF_ | sort
 
-install(){
-  logI "Installing MSR..."
+logI "Installing MSR..."
 
-  logEnv
+applySetupTemplate "${MY_MSR_template}"
 
-  applySetupTemplate "${MY_MSR_template}"
+local installResult=$?
 
-  local installResult=$?
+if [ "${installResult}" -ne 0 ]; then
+  logE "Installation failed, code ${installResult}"
+  exit 1
+fi
 
-  if [ "${installResult}" -ne 0 ]; then
-    logE "Installation failed, code ${installResult}"
-    exit 1
-  fi
-}
-install
-
+logI "MSR installation successful"

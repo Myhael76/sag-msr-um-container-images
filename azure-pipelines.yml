@@ -48,15 +48,20 @@ jobs:
     inputs:
       secureFile: 'msr-license.xml'
 
+  # Install MSR
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/installLeanMSR.sh
+    displayName: 'Install MSR'
+
+  # Containerize Canonical
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/containerizeCanonicalMSR.sh
+    displayName: 'Containerize Canonical MSR'
+
   # Service Principal Credentials
   - task: DownloadSecureFile@1
-    name: secrets
+    name: SPCredentials
     displayName: 'Download SP credentials'
     inputs:
       secureFile: 'sp.credentials.sh'
-
-  - script: ${BUILD_SOURCESDIRECTORY}/scripts/installLeanMSR.sh
-    displayName: 'Generate Lean MSR container image'
 
   # push the image
   # TODO: if commit is tagged, propagate the tag too...
