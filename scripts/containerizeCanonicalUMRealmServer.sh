@@ -5,7 +5,7 @@
 
 logI "Containerizing UM Realm Server according to product default approach"
 
-cp "${BUILD_SOURCESDIRECTORY}/buildCtx/um1/Dockerfile" "${SUIF_INSTALL_INSTALL_DIR}"/
+cp "${BUILD_SOURCESDIRECTORY}/buildCtx/um1/*" "${SUIF_INSTALL_INSTALL_DIR}"/
 
 cd "${SUIF_INSTALL_INSTALL_DIR}"
 logI "Building container"

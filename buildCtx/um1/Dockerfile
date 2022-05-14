@@ -45,7 +45,7 @@ RUN mkdir -p \
       /tmp/product_home/UniversalMessaging/server/$INSTANCE_NAME/bin \
       /tmp/product_home/UniversalMessaging/tools/runner/
 
-COPY ./3rdPartyLicenses.pdf $SAG_HOME/3rdPartyLicenses_NUM_UniversalMessagingDocker.pdf
+#COPY ./3rdPartyLicenses.pdf $SAG_HOME/3rdPartyLicenses_NUM_UniversalMessagingDocker.pdf
 COPY ./common/bin/ /tmp/product_home/common/bin/
 COPY ./common/conf/users.txt /tmp/product_home/common/conf/users.txt
 COPY ./common/lib/ /tmp/product_home/common/lib/
