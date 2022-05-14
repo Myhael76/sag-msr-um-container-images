@@ -39,7 +39,7 @@ jobs:
 
   # Assure image files
   - script: ${BUILD_SOURCESDIRECTORY}/scripts/assureProductImages.sh 
-    displayName: 'Get installation binaries'
+    displayName: 'Get product images'
 
   # MSR license is required at build time
   - task: DownloadSecureFile@1
