@@ -16,7 +16,7 @@ export MY_sd="/tmp/share"       # share directory - images
 export MY_binDir="$MY_sd/bin"
 export MY_installerSharedBin="$MY_binDir/installer.bin"
 export MY_sumBootstrapSharedBin="$MY_binDir/sum-bootstrap.bin"
-export AZ_ACR_CANONICAL_CONTAINER_IMAGE_FULL_NAME="${AZ_ACR_URL}/${AZ_ACR_REPO_NAME}:${MY_fixTag}"
+export AZ_ACR_CANONICAL_CONTAINER_IMAGE_FULL_NAME="${AZ_ACR_URL}/${AZ_ACR_REPO_NAME}:${MY_fixTag}-canonical"
 # TODO: Besides Canonical customized images will be produced
 
 # SUIF references
