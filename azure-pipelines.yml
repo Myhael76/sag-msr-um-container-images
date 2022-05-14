@@ -7,7 +7,7 @@ pool:
   vmImage: Canonical:0001-com-ubuntu-confidential-vm-focal:20_04-lts-gen2:latest
 
 jobs:
-- job: buildLeanMsr
+- job: buildCanonicalLeanMsr
   displayName: Build Lean MSR
   steps:
 
@@ -67,6 +67,80 @@ jobs:
   # TODO: if commit is tagged, propagate the tag too...
   # TODO: push the "${AZ_ACR_CONTAINER_IMAGE_FULL_NAME}" without the fine date only for master branch...
   - script: ${BUILD_SOURCESDIRECTORY}/scripts/pushImages.sh
+    displayName: 'Push built image(s)'
+
+  # Save audit on share 
+  # HINT: ou should use this step only for debug purposes
+  # HINT: without this step the mount may be readonly
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/saveAudit.sh
+    displayName: 'Save Audit on Share'
+    condition: always()
+
+  # umount SA share
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/unmountShare.sh
+    displayName: 'Unmount images share'
+    condition: always()
+
+- job: buildCanonicalUMRealmServer
+  displayName: 'Build Canonical UM Realm Server'
+  steps:
+
+  - script: chmod u+x ${BUILD_SOURCESDIRECTORY}/scripts/*.sh
+    displayName: Allow project scripts to execute
+
+  # get SUIF
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/getSUIF.sh
+    displayName: 'Get SUIF'
+
+  # update ubuntu machine
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/prepareMachine.sh
+    displayName: 'System software preparation'
+  
+  # get SA share secrets
+  - task: DownloadSecureFile@1
+    name: SASecureInfo
+    displayName: 'Download secure information for images share'
+    inputs:
+      secureFile: 'sa.share.secrets.sh'
+
+  # mount SA share
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/mountImagesShare.sh
+    displayName: 'Mount images share'
+
+  # Assure binary installatiom files
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/assureInstallBinaries.sh 
+    displayName: 'Get installation binaries'
+
+  # Assure image files
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/assureUMProductImages.sh 
+    displayName: 'Get product images'
+
+  # MSR license is required at build time
+  - task: DownloadSecureFile@1
+    name: umLicense
+    displayName: 'Download UM license'
+    inputs:
+      secureFile: 'um-license.xml'
+
+  # Install MSR
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/installUMRealmServer.sh
+    displayName: 'Install UM Realm Server'
+
+  # Containerize Canonical
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/containerizeCanonicalUMRealmServer.sh
+    displayName: 'Containerize Canonical UM Realm Server'
+
+  # Service Principal Credentials
+  - task: DownloadSecureFile@1
+    name: SPCredentials
+    displayName: 'Download SP credentials'
+    inputs:
+      secureFile: 'sp.credentials.sh'
+
+  # push the image
+  # TODO: if commit is tagged, propagate the tag too...
+  # TODO: push the "${AZ_ACR_CONTAINER_IMAGE_FULL_NAME}" without the fine date only for master branch...
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/pushUMRSImages.sh
     displayName: 'Push built image(s)'
 
   # Save audit on share 
