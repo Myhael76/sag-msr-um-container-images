@@ -30,7 +30,7 @@ jobs:
       secureFile: 'sa.share.secrets.sh'
 
   # mount SA share
-  - script: ${BUILD_SOURCESDIRECTORY}/scripts/mountImageShare.sh
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/mountImagesShare.sh
     displayName: 'Mount images share'
 
   # Assure binary installatiom files

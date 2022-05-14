@@ -15,4 +15,3 @@ if [ ! -f "${SUIF_HOME}/01.scripts/commonFunctions.sh" ]; then
   echo "SUIF clone unseccessful, cannot continue"
   exit 2
 fi
-
