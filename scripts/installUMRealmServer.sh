@@ -11,7 +11,7 @@ logI "Installing Universal Messaging Realm Server"
 mkdir -p ${SUIF_WMSCRIPT_NUMDataDirID}
 applySetupTemplate "${MY_UM_template}"
 
-local installResult=$?
+installResult=$?
 
 if [ "${installResult}" -ne 0 ]; then
   logE "Installation failed, code ${installResult}"

@@ -25,7 +25,7 @@
 
 #Universal Messaging supports UBI 8 images as base image except for the ubi-micro image variant.
 #read the in-line comments in Dockerfile for changes needs to be done to use UBI images as the base image.
-ARG BASE_IMAGE=centos:8
+ARG BASE_IMAGE=redhat/ubi8
 
 FROM $BASE_IMAGE as base
 
