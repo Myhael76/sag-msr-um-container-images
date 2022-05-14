@@ -11,27 +11,67 @@ jobs:
   displayName: Build Lean MSR
   steps:
 
-  - script: |
-      chmod u+x "${BUILD_SOURCESDIRECTORY}/"*.sh
-      "${BUILD_SOURCESDIRECTORY}"/getBuildah.sh
-    displayName: 'Update and get Buildah'
+  - script: chmod u+x ${BUILD_SOURCESDIRECTORY}/scripts/*.sh
+    displayName: Allow project scripts to execute
 
+  # get SUIF
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/getSUIF.sh
+    displayName: 'Get SUIF'
+
+  # update ubuntu machine
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/prepareMachine.sh
+    displayName: 'System software preparation'
+  
+  # get SA share secrets
+  - task: DownloadSecureFile@1
+    name: SASecureInfo
+    displayName: 'Download secure information for images share'
+    inputs:
+      secureFile: 'sa.share.secrets.sh'
+
+  # mount SA share
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/mountImageShare.sh
+    displayName: 'Mount images share'
+
+  # Assure binary installatiom files
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/assureInstallBinaries.sh 
+    displayName: 'Get installation binaries'
+
+  # Assure image files
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/assureProductImages.sh 
+    displayName: 'Get installation binaries'
+
+  # MSR license is required at build time
   - task: DownloadSecureFile@1
     name: msrLicense
     displayName: 'Download MSR license'
     inputs:
       secureFile: 'msr-license.xml'
 
+  # Service Principal Credentials
   - task: DownloadSecureFile@1
     name: secrets
-    displayName: 'Download MSR build secrets'
+    displayName: 'Download SP credentials'
     inputs:
-      secureFile: 'msr.build.secrets.sh'
+      secureFile: 'sp.credentials.sh'
 
-  - script: |
-      echo "Dumping environment"
-      env | sort
-      echo "End nvironment dump"
-      echo "Installing MSR"
-      ${BUILD_SOURCESDIRECTORY}/installLeanMSR.sh
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/installLeanMSR.sh
     displayName: 'Generate Lean MSR container image'
+
+  # push the image
+  # TODO: if commit is tagged, propagate the tag too...
+  # TODO: push the "${AZ_ACR_CONTAINER_IMAGE_FULL_NAME}" without the fine date only for master branch...
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/pushImages.sh
+    displayName: 'Push built image(s)'
+
+  # Save audit on share 
+  # HINT: ou should use this step only for debug purposes
+  # HINT: without this step the mount may be readonly
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/saveAudit.sh
+    displayName: 'Save Audit on Share'
+    condition: always()
+
+  # umount SA share
+  - script: ${BUILD_SOURCESDIRECTORY}/scripts/unmountShare.sh
+    displayName: 'Unmount images share'
+    condition: always()
