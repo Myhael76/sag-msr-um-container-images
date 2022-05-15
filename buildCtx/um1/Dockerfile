@@ -45,7 +45,6 @@ RUN mkdir -p \
       /tmp/product_home/UniversalMessaging/server/$INSTANCE_NAME/bin \
       /tmp/product_home/UniversalMessaging/tools/runner/
 
-#COPY ./3rdPartyLicenses.pdf $SAG_HOME/3rdPartyLicenses_NUM_UniversalMessagingDocker.pdf
 COPY ./common/bin/ /tmp/product_home/common/bin/
 COPY ./common/conf/users.txt /tmp/product_home/common/conf/users.txt
 COPY ./common/lib/ /tmp/product_home/common/lib/
@@ -58,6 +57,7 @@ COPY ./uminitialize.sh /tmp/product_home/uminitialize.sh
 COPY ./umstart.sh /tmp/product_home/umstart.sh
 COPY ./UniversalMessaging/lib/ /tmp/product_home/UniversalMessaging/lib/
 COPY ./UniversalMessaging/server/$INSTANCE_NAME/bin /tmp/product_home/UniversalMessaging/server/$INSTANCE_NAME/bin
+COPY ./UniversalMessaging/tools/docker/3rdPartyLicenses.pdf /tmp/product_home/3rdPartyLicenses_NUM_UniversalMessagingDocker.pdf
 COPY ./UniversalMessaging/tools/runner/ /tmp/product_home/UniversalMessaging/tools/runner/
 
 ##############################à
