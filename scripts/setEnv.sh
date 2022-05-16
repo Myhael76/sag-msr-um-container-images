@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # options
-export MY_fixTag="22-05-12"
+export MY_fixTag="22-05-15"
 export MY_SUIF_TAG="v.0.0.3-temp"
 export MY_MSR_template="MSR/1011/lean"
 export MY_UM_template="UM/1011/RealmServer"
 export AZ_ACR_URL="miunsagimages.azurecr.io"
 export AZ_ACR_REPO_NAME="sag-lean-msr_1011"
-export AZ_ACR_UMRS_REPO_NAME="sag-lean-msr_1011"
+export AZ_ACR_UMRS_REPO_NAME="sag-um-realm-server_1011"
 
 # change below only if you know the system well
 export MY_d=$(date +%y-%m-%dT%H.%M.%S_%3N)
@@ -17,8 +17,8 @@ export MY_sd="/tmp/share"       # share directory - images
 export MY_binDir="$MY_sd/bin"
 export MY_installerSharedBin="$MY_binDir/installer.bin"
 export MY_sumBootstrapSharedBin="$MY_binDir/sum-bootstrap.bin"
-export AZ_ACR_CANONICAL_CONTAINER_IMAGE_FULL_NAME="${AZ_ACR_URL}/${AZ_ACR_REPO_NAME}:${MY_fixTag}-canonical"
-export AZ_ACR_CANONICAL_UMRS_CONTAINER_IMAGE_FULL_NAME="${AZ_ACR_URL}/${AZ_ACR_UMRS_REPO_NAME}:${MY_fixTag}-canonical"
+export AZ_ACR_CANONICAL_CONTAINER_IMAGE_FULL_NAME="${AZ_ACR_URL}/${AZ_ACR_REPO_NAME}-canonical:${MY_fixTag}"
+export AZ_ACR_CANONICAL_UMRS_CONTAINER_IMAGE_FULL_NAME="${AZ_ACR_URL}/${AZ_ACR_UMRS_REPO_NAME}-canonical:${MY_fixTag}"
 # TODO: Besides Canonical customized images will be produced
 
 # SUIF references
