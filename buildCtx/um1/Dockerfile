@@ -60,7 +60,7 @@ COPY ./UniversalMessaging/server/$INSTANCE_NAME/bin /tmp/product_home/UniversalM
 COPY ./UniversalMessaging/tools/docker/3rdPartyLicenses.pdf /tmp/product_home/3rdPartyLicenses_NUM_UniversalMessagingDocker.pdf
 COPY ./UniversalMessaging/tools/runner/ /tmp/product_home/UniversalMessaging/tools/runner/
 
-##############################à
+##############################
 
 FROM $BASE_IMAGE as base
 

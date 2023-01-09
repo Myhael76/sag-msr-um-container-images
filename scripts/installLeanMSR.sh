@@ -11,7 +11,7 @@ logI "Installing MSR..."
 
 applySetupTemplate "${MY_MSR_template}"
 
-local installResult=$?
+installResult=$?
 
 if [ "${installResult}" -ne 0 ]; then
   logE "Installation failed, code ${installResult}"
